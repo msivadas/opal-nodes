@@ -1,0 +1,28 @@
+{
+  "name": "opal-node-logger",
+  "version": "0.0.1",
+  "description": "Opal logger node",
+  "main": "opal-node-logger.js",
+  "scripts": {
+    "release": "standard-version"
+  },
+  "keywords": [
+    "opal",
+    "Telligro",
+    "logger"
+  ],
+  "node-red": {
+    "nodes": {
+      "node-red-contrib-logger": "opal-node-logger.js"
+    }
+  },
+  "author": "Madhav Sivadas",
+  "license": "GPL3",
+  "dependencies": {
+    "opal-logger": "file:../../../opal-utils/packages/opal-logger"
+  },
+  "devDependencies": {
+    "jshint": "^2.9.4",
+    "standard-version": "^4.0.0"
+  }
+}

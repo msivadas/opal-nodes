@@ -1,0 +1,103 @@
+<script type="text/javascript">
+    RED.nodes.registerType('logger', {
+        category: 'output',
+        color: '#B2EBF2',
+        defaults: {
+            name: {
+                value: ""
+            },
+            completeMessage: {
+                value: false,
+                required: false
+            },
+            message: {
+              value:"",
+              required:false
+            },
+            messageType: {
+              value:"str"
+            },
+            logtype: {
+                value: "info",
+                required: true
+            }
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "log.png",
+        align: "right",
+        label: function() {
+            return this.name || "logger";
+        },
+        oneditprepare: function() {
+
+            if(this.messageType == null) {
+              this.messageType = "str";
+            }
+            $("#node-input-messageType").val(this.messageType);
+
+            $("#node-input-message").typedInput({
+                default: 'str',
+                typeField: $("#node-input-messageType"),
+                types: ['str', 'msg', 'flow', 'global', 'jsonata']
+              });
+
+              if (this.completeMessage === "true" || this.completeMessage === true) {
+                  // show complete message object
+                  $("#node-input-messageOptions-row").hide();
+              }
+              else {
+                  $("#node-input-messageOptions-row").show();
+              }
+
+              $("#node-input-completeMessage").change( function() {
+
+                  if ($("#node-input-completeMessage").is(':checked')) {
+                        $("#node-input-messageOptions-row").hide();
+                        this.completeMessage = true;
+                  }
+                  else {
+                    $("#node-input-messageOptions-row").show();
+                    this.completeMessage = false;
+                  }
+              });
+        },
+        oneditsave: function() {
+          node.warn("configuring the following message in logger: "+this.message);
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="logger">
+    <div class="form-row">
+        <label for="node-input-name" style="width: 28%;"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+
+    <div class="form-row">
+        <label for="node-input-logtype" style="width: 28%;"><i class="fa fa-tasks"></i> Log type</label>
+        <select id="node-input-logtype">
+			       <option value="info">Info logs</option>
+			       <option value="warn">Warn logs</option>
+             <option value="error">Error logs</option>
+		    </select>
+    </div>
+
+    <div class="form-row" id="node-input-completeMessage-row">
+      <label for="node-input-completeMessage" style="width: 28%;">Log XX entire msg object</label>
+      <input type="checkbox" id="node-input-completeMessage">
+    </div>
+
+    <div class="form-row" id="node-input-messageOptions-row">
+        <label for="node-input-message" style="width: 28%;"><i class="fa fa-clone"></i> Log message</label>
+        <input id="node-input-message" type="text">
+        <input id="node-input-messageType" type="hidden">
+    </div>
+
+
+</script>
+
+<script type="text/x-red" data-help-name="logger">
+    <p>Logs messages to Opal logging system.</p>
+</script>
