@@ -1,6 +1,6 @@
 {
   "name": "opal-node-logger",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Opal logger node",
   "main": "opal-node-logger.js",
   "scripts": {
@@ -19,7 +19,7 @@
   "author": "Madhav Sivadas",
   "license": "GPL3",
   "dependencies": {
-    "opal-logger": "file:../../../opal-utils/packages/opal-logger"
+    "opal-logger": "~0.0.1"
   },
   "devDependencies": {
     "jshint": "^2.9.4",
